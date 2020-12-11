@@ -85,7 +85,7 @@ jobs:
         run: |
           export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
           cd python
-          python setup.py bdist_wheel -d wheelhouse
+          python setup.py bdist_wheel -d bdist
 
       - name: remove macos deps
         if: runner.os == 'macOS'
@@ -96,7 +96,7 @@ jobs:
       - name: bdist test
         run: |
           cd python
-          python -m pip install --user wheelhouse/*.whl
+          python -m pip install --user bdist/*.whl
           python -m pytest tests
 
       - name: Publish package

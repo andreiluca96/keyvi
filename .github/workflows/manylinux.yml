@@ -43,8 +43,8 @@ jobs:
           ${PYBIN}/py.test ${GITHUB_WORKSPACE}/python/integration-tests/
 
       - name: Publish package
-        uses: ortega2247/pypi-upload-action@master
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
-          packages_dir: python/wheelhouse
+        env:
+          PYPI_PASSWORD: ${{ secrets.pypi_password }}
+        run: |
+          PYBIN=/opt/python/${PYTHON_PATH}/bin
+          ${PYBIN}/python -m twine upload -u __token__ -p "${PYPI_PASSWORD}" python/wheelhouse/*
