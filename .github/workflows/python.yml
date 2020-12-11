@@ -100,8 +100,8 @@ jobs:
           python -m pytest tests
 
       - name: Publish package
-        if: runner.os == 'macOS' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@master
+        if: matrix.sdist || runner.os == 'macOS'
+        uses: ortega2247/pypi-upload-action@master
         with:
           user: __token__
           password: ${{ secrets.pypi_password }}
